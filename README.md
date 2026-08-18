@@ -1,47 +1,40 @@
-﻿# CSSE3030 Practical Resources
+# CSSE3030 Practical Resources
 
-## Part 3: Randoop & Java PathFinder
+## Week 4 on Apple Silicon macOS
 
-`Roots.java` is the class under test for both tools.
+If you have not cloned the repository yet:
 
-### Randoop
-
-Download `randoop-all-<version>.jar` from the
-[Randoop releases page](https://github.com/randoop/randoop/releases) and follow
-the steps in the practical handout. Any JDK 8+ works.
-
-### Java PathFinder (Symbolic PathFinder)
-
-jpf-core and jpf-symbc are pre-built and committed under `jpf/`, so no cloning
-or building is required. The only thing you need to install yourself is
-**JDK 8** (JPF's own VM model requires it specifically — newer JDKs won't work):
-
-```
-winget install --id EclipseAdoptium.Temurin.8.JDK
+```sh
+git clone --branch mac-test https://github.com/mferr11/CSSE3030Practicals.git
+cd CSSE3030Practicals
 ```
 
-Then, from the repo root:
+From the repository root, install the required tools locally:
 
-1. Add a `main` method to your `Roots.java` so JPF has an entry point:
-   ```java
-   public static void main(String[] args) {
-       numRoots(0, 0, 0);
-   }
-   ```
-   (The concrete values don't matter — SPF overrides them symbolically.)
-2. Compile with debug info: `javac -g Roots.java`
-3. Create a `Roots.jpf` in the same directory as `Roots.java`
-   ```
-   target = Roots
-   classpath = .
-   symbolic.method = Roots.numRoots(sym#sym#sym)
-   listener = gov.nasa.jpf.symbc.SymbolicListener
-   search.multiple_errors = true
-   symbolic.dp = z3
-   ```
-4. Run it: `.\run-jpf.bat Roots.jpf`
+```sh
+./setup-week4-macos.sh
+```
 
-`run-jpf.bat` auto-detects JDK 8 (if installed via the winget command above,
-or already on `JAVA_HOME`), wires up `jpf-core`/`jpf-symbc` regardless of
-where the repo was cloned to, and puts the bundled Z3 solver library on
-`PATH`.
+Run Randoop:
+
+```sh
+mkdir -p week4-results/randoop
+.week4-tools/amazon-corretto-8.jdk/Contents/Home/bin/javac Roots.java
+.week4-tools/amazon-corretto-8.jdk/Contents/Home/bin/java \
+  -classpath ".:.week4-tools/randoop-all-4.3.4.jar" \
+  randoop.main.Main gentests \
+  --testclass=Roots \
+  --time-limit=30 \
+  --unchecked-exception=ERROR \
+  --junit-output-dir=week4-results/randoop
+```
+
+Run Symbolic PathFinder:
+
+```sh
+./run-jpf-macos.sh
+```
+
+Symbolic PathFinder should report five paths, including an
+`ArithmeticException: div by 0` for `Roots.numRoots(0, 0, 0)`. Randoop's test
+counts may vary between runs.

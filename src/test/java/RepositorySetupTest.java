@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 /**
- * Sanity check for the repository setup. If this test passes, JUnit and
- * Mockito are correctly configured and the repository was cloned correctly.
+ * If this test passes, JUnit and Mockito are correctly 
+ * configured and the repository was cloned correctly.
  */
 class RepositorySetupTest {
 
@@ -18,6 +18,7 @@ class RepositorySetupTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void mockitoIsWorking() {
         List<String> mockedList = Mockito.mock(List.class);
         when(mockedList.get(0)).thenReturn("hello");

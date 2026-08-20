@@ -22,4 +22,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    filter {
+        includeTestsMatching "RepositorySetupTest"
+    }
+}
+
+task testQ5(type: Test) {
+    description = "Runs the Question 5 (Checkout) test."
+    group = "verification"
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching "CheckoutTest"
+    }
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
 }

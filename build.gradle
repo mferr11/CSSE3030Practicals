@@ -11,21 +11,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+// Add your dependencies here
 
-    testImplementation platform('org.mockito:mockito-bom:5.14.2')
-    testImplementation 'org.mockito:mockito-core'
-    testImplementation 'org.mockito:mockito-junit-jupiter'
-}
 
-test {
-    useJUnitPlatform()
-    filter {
-        includeTestsMatching "RepositorySetupTest"
-    }
-}
+// Add the "RepositorySetupTest" task here
+
+
 
 task testQ5(type: Test) {
     description = "Runs the Question 5 (Checkout) test."

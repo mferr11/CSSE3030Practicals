@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 /**
- * Question 5: Mockito and Interaction-Based Testing
+ * Question 6: Mockito and Interaction-Based Testing
  *
  * Write a JUnit test, using Mockito, that:
  * 1. creates a mock InventorySystem;

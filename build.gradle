@@ -18,8 +18,8 @@ java {
 
 
 
-task testQ5(type: Test) {
-    description = "Runs the Question 5 (Checkout) test."
+task testQ6(type: Test) {
+    description = "Runs the Question 6 (Checkout) test."
     group = "verification"
     useJUnitPlatform()
     filter {

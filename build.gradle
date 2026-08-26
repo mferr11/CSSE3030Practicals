@@ -17,6 +17,16 @@ java {
 // Add the "RepositorySetupTest" task here
 
 
+task testQ3(type: Test) {
+    description = "Runs the Question 3 (Rectangle) test."
+    group = "verification"
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching "RectangleTest"
+    }
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
 
 task testQ6(type: Test) {
     description = "Runs the Question 6 (Checkout) test."
